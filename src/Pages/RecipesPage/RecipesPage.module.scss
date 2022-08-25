@@ -1,0 +1,55 @@
+@import "src/Styles/variables";
+
+.container {
+  @extend %margin-center;
+  padding: 24px;
+  width: 375px;
+  background-color: white;
+  background-image: url("./Background.png");
+  background-position: top right;
+  background-repeat: no-repeat;
+}
+
+.input_container {
+  @extend %margin-center;
+  width: 311px;
+}
+
+.input {
+  margin-bottom: 16px;
+}
+
+.multidropdown {
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: auto;
+  justify-content: end;
+}
+
+.pagination {
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.cards_container {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 155px 155px;
+  gap: 15px;
+  justify-content: center;
+  position: relative;
+}
+
+.cards_loading {
+  opacity: 0.5;
+}
+
+.loader {
+  @extend %margin-center;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 1;
+}

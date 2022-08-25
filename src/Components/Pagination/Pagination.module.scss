@@ -1,0 +1,32 @@
+@import "src/Styles/variables";
+
+a {
+  text-decoration: none;
+}
+
+.pagination {
+  display: flex;
+  color: $dark-pink;
+}
+
+.arrow {
+  cursor: pointer;
+  margin-right: 5px;
+  color: $dark-pink;
+  font-size: 15px;
+}
+
+.page {
+  cursor: pointer;
+  margin-right: 5px;
+  color: $dark-pink;
+}
+
+.current_page {
+  color: #f8acac;
+  margin-right: 5px;
+}
+
+.rest {
+  display: flex;
+}

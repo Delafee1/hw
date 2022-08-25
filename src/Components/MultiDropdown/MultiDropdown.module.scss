@@ -1,0 +1,49 @@
+@import "src/Styles/variables";
+
+.multidropdown_title {
+    background: linear-gradient(to right, $light-pink, $dark-pink);
+    width: 176px;
+    height: 36px;
+    border-radius: 7px;
+    padding: 4px 19px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 28px;
+    color: black;
+    margin-bottom: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.multidropdown_category {
+    background-color: $light-pink;
+    width: 176px;
+    height: 36px;
+    padding: 4px 19px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 28px;
+    color: black;
+    cursor: pointer;
+}
+
+.multidropdown_category_checked {
+    background-color: $dark-pink;
+}
+
+.multidropdown {
+    position: relative;
+}
+
+.categories_container {
+    width: 176px;
+    border-radius: 7px;
+    position: absolute;
+    top: 40px;
+    z-index: 1;
+    height: 176px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

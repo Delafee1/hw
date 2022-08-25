@@ -1,0 +1,38 @@
+.loader {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transform: rotate(0.5turn);
+    animation-name: rotation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.loader_size_s {
+    width: 20px;
+    height: 20px;
+    background-image: url('./Loader_size-s.png');
+}
+
+.loader_size_m {
+    width: 40px;
+    height: 40px;
+    background-image: url('./Loader_size-m.png');
+}
+
+.loader_size_l {
+    width: 60px;
+    height: 60px;
+    background-image: url('./Loader_size-l.png');
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
