@@ -1,8 +1,8 @@
 import React from "react";
 
-import styles from "@components/Card/Card.module.scss";
-import classNames from "classnames";
+import cn from "classnames";
 
+import styles from "./Card.module.scss";
 import { ReactComponent as Plus } from "./Plus.svg";
 
 type CardProps = {
@@ -23,13 +23,13 @@ const Card: React.FC<CardProps> = ({
   ...props
 }: CardProps) => {
   return (
-    <div className={classNames(styles.card, className)} {...props}>
-      <img src={image} alt={image} className={styles.image} />
-      <h3 className={styles.title}>{title}</h3>
-      <div className={styles.subtitle}>{subtitle}</div>
-      <div className={styles.footer}>
-        <div className={styles.content}>{content}</div>
-        <Plus className={styles.plus} />
+    <div className={cn(styles.card, className)} {...props}>
+      <img src={image} alt={image} className={styles.card__image} />
+      <h3 className={styles.card__title}>{title}</h3>
+      <div className={styles.card__subtitle}>{subtitle}</div>
+      <div className={styles.card__footer}>
+        <div className={styles.card__footer__content}>{content}</div>
+        <Plus className={styles.card__footer__plus} />
       </div>
     </div>
   );

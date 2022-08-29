@@ -1,0 +1,21 @@
+@import "src/Styles/variables";
+
+.errormessage {
+  position: relative;
+  width: 375px;
+  height: 100vh;
+  margin: auto;
+  background: top / contain no-repeat white;
+  padding-top: 20px;
+
+  &__cross {
+    fill: $dark-pink;
+    display: flex;
+    @extend %margin-center;
+    margin-bottom: 20px;
+  }
+
+  &__text {
+    text-align: center;
+  }
+}

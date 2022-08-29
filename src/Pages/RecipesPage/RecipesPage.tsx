@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
+import React from "react";
 
-import Card from "@components/Card/Card";
-import Input from "@components/Input/Input";
-import { Loader, LoaderSize } from "@components/Loader/Loader";
-import MultiDropdown, { Option } from "@components/MultiDropdown/MultiDropdown";
-import Pagination from "@components/Pagination/Pagination";
-import { MEAL_TYPES } from "@utils/Constants/MealTypes";
+import Card from "@components/Card";
+import Input from "@components/Input";
+import Loader, { LoaderSize } from "@components/Loader";
+import MultiDropdown, { Option } from "@components/MultiDropdown";
+import Pagination from "@components/Pagination";
+import { API_KEY } from "@utils/constants/ApiKey";
+import { MEAL_TYPES } from "@utils/constants/MealTypes";
 import axios from "axios";
-import classNames from "classnames";
+import cn from "classnames";
 import { Link, useParams } from "react-router-dom";
 
 import styles from "./RecipesPage.module.scss";
@@ -30,7 +32,7 @@ const RecipesPage: React.FC = () => {
   useEffect(() => {
     setIsLoading(true);
     const pickedCategories = categories.reduce(
-      (acc, value) => acc + value.value + ",",
+      (acc, value) => `${acc}${value.value},`,
       ""
     );
 
@@ -38,7 +40,7 @@ const RecipesPage: React.FC = () => {
       const result = await axios({
         method: "get",
         url:
-          `https://api.spoonacular.com/recipes/complexSearch?apiKey=2e9e4037dd0b45c29259e561907ef904&offset=${page}&type=` +
+          `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&offset=${page}&type=` +
           pickedCategories.split(" ").join("%20"),
       });
       setRecipes(result.data.results);
@@ -61,30 +63,30 @@ const RecipesPage: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.input_container}>
+    <div className={styles.recipes}>
+      <div className={styles.recipes__heading}>
         <Input
           value={""}
           onChange={() => {}}
           placeholder={"Search"}
-          className={styles.input}
+          className={styles.recipes__heading__input}
         />
         <MultiDropdown
           options={MEAL_TYPES}
           value={categories}
-          onChange={(selectedCategories) => handleChange(selectedCategories)}
-          pluralizeOptions={(titles) => multidropdownTitleChange(titles)}
-          className={styles.multidropdown}
+          onChange={handleChange}
+          pluralizeOptions={multidropdownTitleChange}
+          className={styles.recipes__heading__multidropdown}
         />
       </div>
       <Pagination
         totalResults={totalPages}
         currentPage={Number(page)}
-        className={styles.pagination}
+        className={styles.recipes__pagination}
       />
       <div
-        className={classNames(styles.cards_container, {
-          [styles.cards_loading]: isLoading === true,
+        className={cn(styles.recipes__cards, {
+          [styles.recipes__cards_loading]: isLoading === true,
         })}
       >
         <Loader
@@ -98,7 +100,7 @@ const RecipesPage: React.FC = () => {
               image={recipe.image}
               title={recipe.title}
               subtitle={""}
-              className={styles.card}
+              className={styles.recipes__card}
             />
           </Link>
         ))}
