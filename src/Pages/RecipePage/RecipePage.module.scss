@@ -1,14 +1,106 @@
 @import "src/Styles/variables";
 
-.container {
+.recipe {
   position: relative;
   width: 375px;
   margin: auto;
-  background-color: white;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: contain;
+  background: top / contain no-repeat white;
   padding-top: 230px;
+
+  &__back {
+    position: absolute;
+    top: 38px;
+    left: 19px;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 0, 0, 0.1);
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    padding: 0;
+
+    &__arrow {
+      display: flex;
+      margin: auto;
+    }
+
+    &:hover {
+      background-color: rgba(255, 0, 0, 0.15);
+    }
+
+    &:active {
+      background-color: rgba(255, 0, 0, 0.2);
+    }
+  }
+
+  &__content {
+    padding: 18px 34px 34px 34px;
+    border-radius: 7px 7px 0px 0px;
+    background-color: white;
+
+    &__line {
+      @extend %margin-center;
+      display: flex;
+      margin-bottom: 24px;
+    }
+
+    &__title {
+      color: $black;
+      margin: 0px;
+      margin-bottom: 16px;
+      font-weight: 500;
+      font-size: 27px;
+      line-height: 35px;
+    }
+
+    &__numbers {
+      display: flex;
+      color: rgba(59, 59, 59, 0.3);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19px;
+      margin-bottom: 25px;
+
+      &__minutes {
+        display: flex;
+        align-items: center;
+
+        &__icon {
+          width: 16px;
+          height: 15px;
+          fill: #FF9F06;
+          margin-right: 15px;
+        }
+
+        &__text {
+          margin: 0;
+          margin-right: 45px;
+        }
+      }
+
+      &__likes {
+        display: flex;
+        align-items: center;
+
+        &__icon {
+          width: 16px;
+          height: 15px;
+          margin-right: 15px;
+        }
+
+        &__text {
+          margin: 0;
+        }
+      }
+    }
+
+    &__text {
+      color: #09051C;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 21px;
+    }
+  }
 }
 
 .loader {
@@ -18,99 +110,4 @@
   left: 0;
   right: 0;
   text-align: center;
-}
-
-.buttonBack {
-  position: absolute;
-  top: 38px;
-  left: 19px;
-  width: 45px;
-  height: 45px;
-  background-color: rgba(255, 0, 0, 0.1);
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-  padding: 0;
-}
-
-.buttonArrow {
-  display: flex;
-  margin: auto;
-}
-
-.buttonBack:hover {
-  background-color: rgba(255, 0, 0, 0.15);
-}
-
-.buttonBack:active {
-  background-color: rgba(255, 0, 0, 0.2);
-}
-
-.content {
-  padding: 18px 34px 34px 34px;
-  border-radius: 7px 7px 0px 0px;
-  background-color: white;
-}
-
-.line {
-  @extend %margin-center;
-  display: flex;
-  margin-bottom: 24px;
-}
-
-.title {
-  color: #09051C;
-  margin: 0px;
-  margin-bottom: 16px;
-  font-weight: 500;
-  font-size: 27px;
-  line-height: 35px;
-}
-
-.numbers_container {
-  display: flex;
-  color: rgba(59, 59, 59, 0.3);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 19px;
-  margin-bottom: 25px;
-}
-
-.minutes {
-  display: flex;
-  align-items: center;
-}
-
-.minutes_icon {
-  width: 16px;
-  height: 15px;
-  fill: #FF9F06;
-  margin-right: 15px;
-}
-
-.minutes_text {
-  margin: 0;
-  margin-right: 45px;
-}
-
-.likes {
-  display: flex;
-  align-items: center;
-}
-
-.likes_icon {
-  width: 16px;
-  height: 15px;
-  margin-right: 15px;
-}
-
-.likes_text {
-  margin: 0;
-}
-
-.text {
-  color: #09051C;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 21px;
 }

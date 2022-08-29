@@ -1,6 +1,6 @@
 @import "src/Styles/variables";
 
-.container {
+.recipes {
   @extend %margin-center;
   padding: 24px;
   width: 375px;
@@ -8,40 +8,40 @@
   background-image: url("./Background.png");
   background-position: top right;
   background-repeat: no-repeat;
-}
 
-.input_container {
-  @extend %margin-center;
-  width: 311px;
-}
+  &__heading {
+    @extend %margin-center;
+    width: 311px;
 
-.input {
-  margin-bottom: 16px;
-}
+    &__input {
+      margin-bottom: 16px;
+    }
 
-.multidropdown {
-  display: flex;
-  margin-bottom: 20px;
-  margin-left: auto;
-  justify-content: end;
-}
+    &__multidropdown {
+      display: flex;
+      margin-bottom: 20px;
+      margin-left: auto;
+      justify-content: end;
+    }
+  }
 
-.pagination {
-  justify-content: center;
-  margin-bottom: 5px;
-}
+  &__pagination {
+    justify-content: center;
+    margin-bottom: 5px;
+  }
 
-.cards_container {
-  display: grid;
-  min-height: 100vh;
-  grid-template-columns: 155px 155px;
-  gap: 15px;
-  justify-content: center;
-  position: relative;
-}
+  &__cards {
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 155px 155px;
+    gap: 15px;
+    justify-content: center;
+    position: relative;
 
-.cards_loading {
-  opacity: 0.5;
+    &_loading {
+      opacity: 0.5;
+    }
+  }
 }
 
 .loader {

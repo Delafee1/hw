@@ -1,5 +1,9 @@
-import styles from "@components/Loader/Loader.module.scss";
+import React from "react";
+
 import cn from "classnames";
+
+import styles from "./Loader.module.scss";
+import { ReactComponent as Ring } from "./Loader.svg";
 
 export enum LoaderSize {
   s = "s",
@@ -13,7 +17,7 @@ type LoaderProps = {
   className?: string;
 };
 
-export const Loader: React.FC<LoaderProps> = ({
+const Loader: React.FC<LoaderProps> = ({
   loading = true,
   size = LoaderSize.m,
   className,
@@ -24,7 +28,7 @@ export const Loader: React.FC<LoaderProps> = ({
   }
 
   return (
-    <span
+    <Ring
       className={cn(styles.loader, className, {
         [styles.loader_size_s]: size === LoaderSize.s,
         [styles.loader_size_m]: size === LoaderSize.m,
@@ -34,3 +38,5 @@ export const Loader: React.FC<LoaderProps> = ({
     />
   );
 };
+
+export default Loader;

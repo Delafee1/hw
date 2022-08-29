@@ -1,7 +1,8 @@
 import React from "react";
 
-import styles from "@components/MultiDropdown/MultiDropdown.module.scss";
-import classnames from "classnames";
+import cn from "classnames";
+
+import styles from "./MultiDropdown.module.scss";
 
 export type Option = {
   key: string;
@@ -29,14 +30,12 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   const [isOpen, setIsOpen] = React.useState(false);
 
   const onClickHandler = (option: Option) => {
-    let newValue = value.slice(0);
-    let selected = newValue.find((val) => val["key"] === option["key"]);
-    if (selected) {
-      newValue.splice(newValue.indexOf(selected), 1);
+    let selected = checkOption(option);
+    if (selected === -1) {
+      onChange([...value, option]);
     } else {
-      newValue.push(option);
+      onChange(value.filter((val, index) => index !== selected));
     }
-    onChange(newValue);
   };
 
   const dropdownToggle = () => {
@@ -44,23 +43,21 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   };
 
   const checkOption = (option: Option) => {
-    let selected = value.find((val) => val["key"] === option["key"]);
-    if (selected) return true;
-    return false;
+    return value.findIndex((val) => val.key === option.key);
   };
 
   return (
-    <div className={classnames(styles.multidropdown, className)} {...props}>
-      <div className={styles.multidropdown_title} onClick={dropdownToggle}>
+    <div className={cn(styles.multidropdown, className)} {...props}>
+      <div className={styles.multidropdown__title} onClick={dropdownToggle}>
         {pluralizeOptions(value)}
       </div>
       {isOpen && !disabled && (
-        <div className={styles.categories_container}>
+        <div className={styles.multidropdown__categories}>
           {options.map((option) => (
             <div
-              className={classnames(styles.multidropdown_category, {
-                [styles.multidropdown_category_checked]:
-                  checkOption(option) === true,
+              className={cn(styles.multidropdown__category, {
+                [styles.multidropdown__category_checked]:
+                  checkOption(option) !== -1,
               })}
               key={option.key}
               onClick={() => onClickHandler(option)}

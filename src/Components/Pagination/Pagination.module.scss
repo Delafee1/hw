@@ -7,26 +7,26 @@ a {
 .pagination {
   display: flex;
   color: $dark-pink;
-}
 
-.arrow {
-  cursor: pointer;
-  margin-right: 5px;
-  color: $dark-pink;
-  font-size: 15px;
-}
+  &__arrow {
+    cursor: pointer;
+    margin-right: 5px;
+    color: $dark-pink;
+    font-size: 15px;
+  }
 
-.page {
-  cursor: pointer;
-  margin-right: 5px;
-  color: $dark-pink;
-}
+  &__page {
+    cursor: pointer;
+    margin-right: 5px;
+    color: $dark-pink;
+  }
 
-.current_page {
-  color: #f8acac;
-  margin-right: 5px;
-}
+  &__currentpage {
+    color: $outline-pink;
+    margin-right: 5px;
+  }
 
-.rest {
-  display: flex;
+  &__rest {
+    display: flex;
+  }
 }

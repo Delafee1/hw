@@ -6,19 +6,19 @@
         "src/App/*"
       ],
       "@components/*": [
-        "src/Components/*"
+        "src/components/*"
       ],
       "@pages/*": [
-        "src/Pages/*"
+        "src/pages/*"
       ],
       "@config/*": [
-        "src/Config/*"
+        "src/config/*"
       ],
       "@styles/*": [
-        "src/Styles/*"
+        "src/styles/*"
       ],
       "@utils/*": [
-        "src/Utils/*"
+        "src/utils/*"
       ]
     }
   }
