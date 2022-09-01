@@ -1,16 +1,25 @@
+import { useEffect } from "react";
+
 import RecipePage from "@pages/RecipePage";
 import RecipesPage from "@pages/RecipesPage";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { getInitCategories } from "@store/CategoriesStore/getInitCategories";
+import { getInitPage } from "@store/PaginationStore/getInitPage";
+import { useQueryParamsStoreInit } from "@store/QueryParamsStore/useQueryParamsStoreInit";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 const App = () => {
+  useQueryParamsStoreInit();
+  useEffect(() => {
+    getInitCategories();
+    getInitPage();
+  }, []);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/recipes/:page" element={<RecipesPage />} />
-        <Route path="/recipe/:id" element={<RecipePage />} />
-        <Route path="*" element={<Navigate to="/recipes/1" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route index element={<RecipesPage />} />
+      <Route path="/recipes/" element={<RecipesPage />} />
+      <Route path="/recipe/*" element={<RecipePage />} />
+    </Routes>
   );
 };
 

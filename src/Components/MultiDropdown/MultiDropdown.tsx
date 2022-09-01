@@ -1,6 +1,11 @@
 import React from "react";
 
+import { categoriesStore } from "@store/CategoriesStore";
+import { paginationStore } from "@store/PaginationStore";
+import { recipesStore } from "@store/RecipesStore";
 import cn from "classnames";
+import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./MultiDropdown.module.scss";
 
@@ -11,45 +16,37 @@ export type Option = {
 
 export type MultiDropdownProps = {
   options: Option[];
-  value: Option[];
-  onChange: (value: Option[]) => void;
   disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
   className: string;
 };
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
   options,
-  value,
-  onChange,
   disabled,
-  pluralizeOptions,
   className,
   ...props
 }: MultiDropdownProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const onClickHandler = (option: Option) => {
-    let selected = checkOption(option);
-    if (selected === -1) {
-      onChange([...value, option]);
-    } else {
-      onChange(value.filter((val, index) => index !== selected));
-    }
+    categoriesStore.setSelectedCategoriesArray(option);
+    paginationStore.setCurrentPage(1);
+    navigate(
+      `./?categories=${categoriesStore.getSelectedCategoriesString()}&page=${
+        paginationStore.currentPage
+      }`
+    );
   };
 
   const dropdownToggle = () => {
     setIsOpen(!isOpen);
   };
 
-  const checkOption = (option: Option) => {
-    return value.findIndex((val) => val.key === option.key);
-  };
-
   return (
     <div className={cn(styles.multidropdown, className)} {...props}>
       <div className={styles.multidropdown__title} onClick={dropdownToggle}>
-        {pluralizeOptions(value)}
+        {categoriesStore.getSelectedCategoriesTitle()}
       </div>
       {isOpen && !disabled && (
         <div className={styles.multidropdown__categories}>
@@ -57,7 +54,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
             <div
               className={cn(styles.multidropdown__category, {
                 [styles.multidropdown__category_checked]:
-                  checkOption(option) !== -1,
+                  categoriesStore.checkOption(option) !== -1,
               })}
               key={option.key}
               onClick={() => onClickHandler(option)}
