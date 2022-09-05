@@ -1,8 +1,9 @@
 import React from "react";
 
 import Input from "@components/Input";
-import { searchStore } from "@store/SearchStore/SearchStore";
-import { observer } from "mobx-react-lite";
+import cn from "classnames";
+
+import styles from "./Search.module.scss";
 
 export type SearchProps = React.FormHTMLAttributes<HTMLFormElement>;
 
@@ -11,20 +12,14 @@ const Search: React.FC<SearchProps> = ({
   className,
   ...props
 }: SearchProps) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    searchStore.setSearch(e.target.value);
-  };
-
   return (
-    <form onSubmit={onSubmit} className={className} {...props}>
-      <Input
-        value={searchStore.search}
-        onChange={handleInputChange}
-        placeholder={"Search"}
-      />
-      <input type="submit" value="search" />
+    <form onSubmit={onSubmit} className={cn(className, styles.form)} {...props}>
+      <Input placeholder={"Search"} className={styles.form__input} />
+      <label className={styles.form__icon}>
+        <input type="submit" value="" className={styles.form__submit} />
+      </label>
     </form>
   );
 };
 
-export default observer(Search);
+export default Search;

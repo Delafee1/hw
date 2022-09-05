@@ -7,7 +7,6 @@ import styles from "./Input.module.scss";
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input: React.FC<InputProps> = ({
-  value,
   onChange,
   className,
   disabled,
@@ -19,10 +18,9 @@ const Input: React.FC<InputProps> = ({
       onChange={onChange}
       disabled={disabled}
       type="text"
-      value={value}
       {...props}
     />
   );
 };
 
-export default Input;
+export default React.memo(Input);

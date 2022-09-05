@@ -1,40 +1,64 @@
 import { Option } from "@components/MultiDropdown";
-import { queryParamsStore } from "@store/QueryParamsStore/QueryParamsStore";
+import rootStore from "@store/RootStore";
 import { MEAL_TYPES } from "@utils/constants/MealTypes";
-import { action, computed, makeObservable, observable, toJS } from "mobx";
+import { ILocalStore } from "@utils/useLocalStore";
+import { action, computed, makeObservable, observable } from "mobx";
 
-import { getInitCategories } from "./getInitCategories";
+type PrivateFields = "_selectedCategories" | "_dropdownIsOpen";
 
-type PrivateFields = "_selectedCategories";
-
-export class CategoriesStore {
+export default class CategoriesStore implements ILocalStore {
   private _selectedCategories: Option[] = [];
+  private _dropdownIsOpen: boolean = false;
+  private _availableCategories: Option[] = MEAL_TYPES;
 
   constructor() {
     makeObservable<CategoriesStore, PrivateFields>(this, {
       _selectedCategories: observable,
+      _dropdownIsOpen: observable,
+      dropdownIsOpen: computed,
       selectedCategories: computed,
-      setSelectedCategories: action,
+      initCategories: action,
+      dropdownToggle: action,
       setSelectedCategoriesArray: action,
       getSelectedCategoriesString: action,
-      getSelectedCategoriesTitle: action,
+      setDropdownTitle: action,
       checkOption: action,
     });
   }
+
+  get availableCategories(): Option[] {
+    return this._availableCategories;
+  }
+
+  get selectedCategories(): Option[] {
+    return this._selectedCategories;
+  }
+
+  get dropdownIsOpen(): boolean {
+    return this._dropdownIsOpen;
+  }
+
+  initCategories = () => {
+    const selectedCategories = rootStore.query.getParam("categories");
+    const availableCategories = MEAL_TYPES;
+    if (typeof selectedCategories === "string") {
+      if (selectedCategories.length === 0) {
+        this._selectedCategories = [];
+      }
+      const result = availableCategories.filter((val) =>
+        selectedCategories.split(",").includes(val.value)
+      );
+      this._selectedCategories = result;
+    } else {
+      this._selectedCategories = [];
+    }
+  };
 
   checkOption = (category: Option) => {
     return this._selectedCategories.findIndex(
       (val) => val.key === category.key
     );
   };
-
-  get selectedCategories(): Option[] {
-    return this._selectedCategories;
-  }
-
-  setSelectedCategories(categories: Option[]) {
-    this._selectedCategories = categories;
-  }
 
   setSelectedCategoriesArray(category: Option) {
     const selected = this.checkOption(category);
@@ -48,23 +72,29 @@ export class CategoriesStore {
   }
 
   getSelectedCategoriesString() {
-    const categories = this._selectedCategories.reduce(
-      (acc, value) => `${acc}${value.value},`,
-      ""
-    );
+    const categories = this.categoriesToString(this._selectedCategories, ",");
     return categories.substring(0, categories.length - 1);
   }
 
-  getSelectedCategoriesTitle() {
+  setDropdownTitle() {
     if (this._selectedCategories.length === 0) {
       return "Pick categories";
     }
-    const title = this._selectedCategories.reduce(
-      (acc, value) => `${acc}${value.value}, `,
-      ""
-    );
+    const title = this.categoriesToString(this._selectedCategories, ", ");
     return title.substring(0, title.length - 2);
   }
-}
 
-export const categoriesStore = new CategoriesStore();
+  dropdownToggle() {
+    this._dropdownIsOpen = !this._dropdownIsOpen;
+  }
+
+  private categoriesToString(categories: Option[], separator: string): string {
+    const string = categories.reduce(
+      (acc, value) => `${acc}${value.value}${separator}`,
+      ""
+    );
+    return string;
+  }
+
+  destroy(): void {}
+}

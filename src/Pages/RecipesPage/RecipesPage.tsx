@@ -3,57 +3,66 @@ import React from "react";
 
 import Card from "@components/Card";
 import Loader, { LoaderSize } from "@components/Loader";
-import MultiDropdown, { Option } from "@components/MultiDropdown";
-import Pagination from "@components/Pagination";
+import MultiDropdown from "@components/MultiDropdown";
 import Search from "@components/Search";
-import { paginationStore } from "@store/PaginationStore";
-import { recipesStore } from "@store/RecipesStore";
-import { MEAL_TYPES } from "@utils/constants/MealTypes";
-import { Meta } from "@utils/constants/meta";
+import RecipesStore from "@store/RecipesStore";
+import { Meta } from "@utils/types/meta";
+import { useLocalStore } from "@utils/useLocalStore";
 import cn from "classnames";
 import { observer } from "mobx-react-lite";
-import { Link, useLocation } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Link, useSearchParams } from "react-router-dom";
 
 import styles from "./RecipesPage.module.scss";
 
 const RecipesPage: React.FC = () => {
-  // eslint-disable-next-line no-console
-  console.log("recipes rendered");
+  const recipesStore = useLocalStore(() => new RecipesStore());
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     recipesStore.getRecipesList();
-  }, []);
+  }, [recipesStore]);
 
-  const handleSearchSubmit = (e: React.SyntheticEvent) => {
+  const handleSearchSubmit = (e: any) => {
     e.preventDefault();
-    //  navigate(`./?search=${searchStore.search}`);
+    const search = e.target[0].value;
+    searchParams.set("search", search);
+    setSearchParams(searchParams);
   };
 
   return (
     <div className={styles.recipes}>
       <div className={styles.recipes__heading}>
-        <Search onSubmit={handleSearchSubmit} />
-        <MultiDropdown
-          options={MEAL_TYPES}
-          className={styles.recipes__heading__multidropdown}
+        <Search
+          onSubmit={handleSearchSubmit}
+          className={styles.recipes__heading__search}
         />
+        <div className={styles.recipes__heading__row}>
+          <div className={styles.recipes__heading__row__results}>
+            Total Results: {recipesStore.totalResults}
+          </div>
+          <MultiDropdown
+            className={styles.recipes__heading__row__multidropdown}
+          />
+        </div>
       </div>
-      <Pagination
-        totalResults={paginationStore.totalPages}
-        className={styles.recipes__pagination}
+      <Loader
+        loading={recipesStore.meta === Meta.loading}
+        size={LoaderSize.l}
+        className={styles.loader}
       />
-      <div
+      <InfiniteScroll
         className={cn(styles.recipes__cards, {
           [styles.recipes__cards_loading]: recipesStore.meta === Meta.loading,
         })}
+        dataLength={recipesStore.recipes.length}
+        next={recipesStore.getRecipesList}
+        hasMore={true}
+        loader={""}
       >
-        <Loader
-          loading={recipesStore.meta === Meta.loading}
-          size={LoaderSize.l}
-          className={styles.loader}
-        />
-        {recipesStore.recipes.map((recipe) => (
-          <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
+        {recipesStore.recipes.map((recipe, index) => (
+          <Link to={`/recipe/?id=${recipe.id}`} key={index}>
             <Card
               image={recipe.image}
               title={recipe.title}
@@ -62,7 +71,7 @@ const RecipesPage: React.FC = () => {
             />
           </Link>
         ))}
-      </div>
+      </InfiniteScroll>
     </div>
   );
 };

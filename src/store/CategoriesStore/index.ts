@@ -1,1 +1,1 @@
-export * from "./CategoriesStore";
+export { default } from "./CategoriesStore";

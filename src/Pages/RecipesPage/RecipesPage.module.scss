@@ -4,6 +4,7 @@
   @extend %margin-center;
   padding: 24px;
   width: 375px;
+  min-height: 100vh;
   background-color: white;
   background-image: url("./Background.png");
   background-position: top right;
@@ -13,15 +14,25 @@
     @extend %margin-center;
     width: 311px;
 
-    &__input {
+    &__search {
       margin-bottom: 16px;
     }
 
-    &__multidropdown {
+    &__row {
       display: flex;
-      margin-bottom: 20px;
-      margin-left: auto;
-      justify-content: flex-end;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      align-items: baseline;
+
+      &__multidropdown {
+        display: flex;
+      }
+
+      &__results {
+        display: flex;
+        color: $black;
+        font-size: 12px;
+      }
     }
   }
 
@@ -32,7 +43,6 @@
 
   &__cards {
     display: grid;
-    min-height: 100vh;
     grid-template-columns: 155px 155px;
     gap: 15px;
     justify-content: center;
@@ -47,7 +57,7 @@
 .loader {
   @extend %margin-center;
   position: absolute;
-  top: 60px;
+  top: 200px;
   left: 0;
   right: 0;
   text-align: center;
