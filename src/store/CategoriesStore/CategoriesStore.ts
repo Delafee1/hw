@@ -4,7 +4,10 @@ import { MEAL_TYPES } from "@utils/constants/MealTypes";
 import { ILocalStore } from "@utils/useLocalStore";
 import { action, computed, makeObservable, observable } from "mobx";
 
-type PrivateFields = "_selectedCategories" | "_dropdownIsOpen";
+type PrivateFields =
+  | "_selectedCategories"
+  | "_dropdownIsOpen"
+  | "_availableCategories";
 
 export default class CategoriesStore implements ILocalStore {
   private _selectedCategories: Option[] = [];
@@ -14,9 +17,11 @@ export default class CategoriesStore implements ILocalStore {
   constructor() {
     makeObservable<CategoriesStore, PrivateFields>(this, {
       _selectedCategories: observable,
+      _availableCategories: observable,
       _dropdownIsOpen: observable,
       dropdownIsOpen: computed,
       selectedCategories: computed,
+      availableCategories: computed,
       initCategories: action,
       dropdownToggle: action,
       setSelectedCategoriesArray: action,
@@ -39,14 +44,13 @@ export default class CategoriesStore implements ILocalStore {
   }
 
   initCategories = () => {
-    const selectedCategories = rootStore.query.getParam("categories");
-    const availableCategories = MEAL_TYPES;
-    if (typeof selectedCategories === "string") {
-      if (selectedCategories.length === 0) {
+    const queryCategories = rootStore.query.getParam("categories");
+    if (typeof queryCategories === "string") {
+      if (queryCategories.length === 0) {
         this._selectedCategories = [];
       }
-      const result = availableCategories.filter((val) =>
-        selectedCategories.split(",").includes(val.value)
+      const result = this._availableCategories.filter((val) =>
+        queryCategories.split(",").includes(val.value)
       );
       this._selectedCategories = result;
     } else {

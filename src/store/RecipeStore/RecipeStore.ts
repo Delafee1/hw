@@ -31,7 +31,7 @@ export default class RecipeStore implements ILocalStore {
   constructor() {
     makeObservable<RecipeStore, PrivateFields>(this, {
       _meta: observable,
-      _recipe: observable,
+      _recipe: observable.ref,
       _errorMessage: observable,
       recipe: computed,
       meta: computed,

@@ -63,7 +63,7 @@ export default class RecipesStore implements ILocalStore {
     if (rootStore.query.getParam("categories") !== undefined) {
       category = `&type=${rootStore.query.getParam("categories")}`;
     }
-    if (reset === true) {
+    if (reset) {
       this._offset = 1;
     }
     try {
@@ -78,7 +78,7 @@ export default class RecipesStore implements ILocalStore {
         }
         this._meta = Meta.success;
         this._recipes = this._recipes.concat(result.data.results);
-        this._offset = this._offset + 10;
+        this._offset = this._offset + result.data.results.length;
         this._totalResults = result.data.totalResults;
       });
     } catch (e) {
@@ -88,13 +88,15 @@ export default class RecipesStore implements ILocalStore {
     }
   };
 
-  destroy(): void {}
+  destroy(): void {
+    this._qpCategoryReaction();
+  }
 
   private readonly _qpCategoryReaction: IReactionDisposer = reaction(
     () =>
       rootStore.query.getParam("search") ||
       rootStore.query.getParam("categories"),
-    (category) => {
+    () => {
       this.getRecipesList(
         rootStore.query.getParam("categories"),
         rootStore.query.getParam("search"),
