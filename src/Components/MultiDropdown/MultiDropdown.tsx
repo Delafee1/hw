@@ -1,6 +1,10 @@
 import React from "react";
 
+import CategoriesStore from "@store/CategoriesStore";
+import { useLocalStore } from "@utils/useLocalStore";
 import cn from "classnames";
+import { observer } from "mobx-react-lite";
+import { useSearchParams } from "react-router-dom";
 
 import styles from "./MultiDropdown.module.scss";
 
@@ -10,57 +14,47 @@ export type Option = {
 };
 
 export type MultiDropdownProps = {
-  options: Option[];
-  value: Option[];
-  onChange: (value: Option[]) => void;
   disabled?: boolean;
-  pluralizeOptions: (value: Option[]) => string;
   className: string;
 };
 
 const MultiDropdown: React.FC<MultiDropdownProps> = ({
-  options,
-  value,
-  onChange,
   disabled,
-  pluralizeOptions,
   className,
   ...props
 }: MultiDropdownProps) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const categoriesStore = useLocalStore(() => new CategoriesStore());
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  categoriesStore.initCategories();
 
   const onClickHandler = (option: Option) => {
-    let selected = checkOption(option);
-    if (selected === -1) {
-      onChange([...value, option]);
-    } else {
-      onChange(value.filter((val, index) => index !== selected));
-    }
-  };
-
-  const dropdownToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const checkOption = (option: Option) => {
-    return value.findIndex((val) => val.key === option.key);
+    categoriesStore.setSelectedCategoriesArray(option);
+    setSearchParams({
+      categories: categoriesStore.getSelectedCategoriesString(),
+    });
   };
 
   return (
     <div className={cn(styles.multidropdown, className)} {...props}>
-      <div className={styles.multidropdown__title} onClick={dropdownToggle}>
-        {pluralizeOptions(value)}
+      <div
+        className={styles.multidropdown__title}
+        onClick={() => categoriesStore.dropdownToggle()}
+      >
+        {categoriesStore.setDropdownTitle()}
       </div>
-      {isOpen && !disabled && (
+      {categoriesStore.dropdownIsOpen && !disabled && (
         <div className={styles.multidropdown__categories}>
-          {options.map((option) => (
+          {categoriesStore.availableCategories.map((option) => (
             <div
               className={cn(styles.multidropdown__category, {
                 [styles.multidropdown__category_checked]:
-                  checkOption(option) !== -1,
+                  categoriesStore.checkOption(option) !== -1,
               })}
               key={option.key}
-              onClick={() => onClickHandler(option)}
+              onClick={() => {
+                onClickHandler(option);
+              }}
               {...props}
             >
               {option.value}
@@ -72,4 +66,4 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   );
 };
 
-export default MultiDropdown;
+export default observer(MultiDropdown);
