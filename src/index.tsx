@@ -1,8 +1,8 @@
 import React from "react";
-import "@styles/index.css";
-import "@config/configureMobX";
+import "./styles/index.css";
+import "./config/configureMobX";
 
-import App from "@app/App";
+import App from "./App/App";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
@@ -14,3 +14,8 @@ root.render(
     <App />
   </BrowserRouter>
 );
+
+
+if (module.hot) {
+  module.hot.accept();
+}

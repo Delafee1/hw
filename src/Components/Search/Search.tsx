@@ -1,6 +1,6 @@
 import React from "react";
 
-import Input from "@components/Input";
+import Input from "components/Input";
 import cn from "classnames";
 
 import styles from "./Search.module.scss";

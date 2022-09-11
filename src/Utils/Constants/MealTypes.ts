@@ -1,4 +1,4 @@
-import { Option } from "@components/MultiDropdown/MultiDropdown";
+import { Option } from "components/MultiDropdown/MultiDropdown";
 
 export const MEAL_TYPES: Option[] = [
   { key: "1", value: "main course" },

@@ -1,6 +1,5 @@
 import React from "react";
 
-import { ReactComponent as Cross } from "./Cross.svg";
 import styles from "./ErrorMessage.module.scss";
 
 type ErrorMessageProps = {
@@ -12,7 +11,7 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({
 }: ErrorMessageProps) => {
   return (
     <div className={styles.errormessage}>
-      <Cross className={styles.errormessage__cross} />
+      <span className={styles.errormessage__cross}/>
       <div className={styles.errormessage__text}>{errorText}</div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 
-import CategoriesStore from "@store/CategoriesStore";
-import { useLocalStore } from "@utils/useLocalStore";
+import CategoriesStore from "store/CategoriesStore";
+import { useLocalStore } from "utils/useLocalStore";
 import cn from "classnames";
 import { observer } from "mobx-react-lite";
 import { useSearchParams } from "react-router-dom";

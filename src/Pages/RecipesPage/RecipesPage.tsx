@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import React from "react";
 
-import Card from "@components/Card";
-import Loader, { LoaderSize } from "@components/Loader";
-import MultiDropdown from "@components/MultiDropdown";
-import Search from "@components/Search";
-import RecipesStore from "@store/RecipesStore";
-import { Meta } from "@utils/types/meta";
-import { useLocalStore } from "@utils/useLocalStore";
+import Card from "components/Card";
+import Loader, { LoaderSize } from "components/Loader";
+import MultiDropdown from "components/MultiDropdown";
+import Search from "components/Search";
+import RecipesStore from "store/RecipesStore";
+import { Meta } from "utils/types/meta";
+import { useLocalStore } from "utils/useLocalStore";
 import cn from "classnames";
 import { observer } from "mobx-react-lite";
 import InfiniteScroll from "react-infinite-scroll-component";

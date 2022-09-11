@@ -1,7 +1,7 @@
-import rootStore from "@store/RootStore";
-import { API_KEY } from "@utils/constants/ApiKey";
-import { Meta } from "@utils/types/meta";
-import { ILocalStore } from "@utils/useLocalStore";
+import rootStore from "store/RootStore";
+import { API_KEY } from "utils/constants/ApiKey";
+import { Meta } from "utils/types/meta";
+import { ILocalStore } from "utils/useLocalStore";
 import axios from "axios";
 import {
   action,

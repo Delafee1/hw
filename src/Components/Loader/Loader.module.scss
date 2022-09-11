@@ -1,6 +1,7 @@
 @import "src/Styles/variables";
 
 .loader {
+    background: center / contain no-repeat url('./Loader.svg');
     position: absolute;
     transform: rotate(0.5turn);
     animation-name: rotation;

@@ -9,6 +9,9 @@
   padding-top: 20px;
 
   &__cross {
+    background: center / contain no-repeat url('./Cross.svg');
+    width: 45px;
+    height: 45px;
     fill: $dark-pink;
     display: flex;
     @extend %margin-center;
