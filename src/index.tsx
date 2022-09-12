@@ -1,8 +1,8 @@
 import React from "react";
-import "./styles/index.css";
-import "./config/configureMobX";
+import "styles/index.css";
+import "config/configureMobX";
 
-import App from "./App/App";
+import App from "App/App";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 

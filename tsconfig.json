@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "app": ["app"],
+      "App": ["App"],
       "components": ["components"],
       "styles": ["styles"],
       "config": ["config"],

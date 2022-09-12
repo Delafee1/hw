@@ -36,6 +36,7 @@ module.exports = {
   output: {
     path: buildPath,
     filename: "bundle.js",
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -79,7 +80,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', ',jsx'],
     alias: {
       components: path.join(srcPath, 'components'),
-      app: path.join(srcPath, 'app'),
+      App: path.join(srcPath, 'App'),
       styles: path.join(srcPath, 'styles'),
       config: path.join(srcPath, 'config'),
       store: path.join(srcPath, 'store'),
@@ -91,5 +92,6 @@ module.exports = {
     host: '127.0.0.1',
     port: 9000,
     hot: true,
+    historyApiFallback: true
   }
 }
