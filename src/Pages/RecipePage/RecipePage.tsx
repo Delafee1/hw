@@ -1,19 +1,15 @@
 import { useEffect } from "react";
 import React from "react";
 
-import ErrorMessage from "@components/ErrorMessage";
-import Loader, { LoaderSize } from "@components/Loader";
-import RecipeStore from "@store/RecipeStore";
-import { Meta } from "@utils/types/meta";
-import { useLocalStore } from "@utils/useLocalStore";
+import ErrorMessage from "components/ErrorMessage";
+import Loader, { LoaderSize } from "components/Loader";
+import RecipeStore from "store/RecipeStore";
+import { Meta } from "utils/types/meta";
+import { useLocalStore } from "utils/useLocalStore";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
 
-import { ReactComponent as Arrow } from "./Arrow.svg";
-import { ReactComponent as Heart } from "./Heart.svg";
-import { ReactComponent as Line } from "./Line.svg";
 import styles from "./RecipePage.module.scss";
-import { ReactComponent as Time } from "./Time.svg";
 
 const RecipePage: React.FC = () => {
   const recipeStore = useLocalStore(() => new RecipeStore());
@@ -39,17 +35,17 @@ const RecipePage: React.FC = () => {
           className={styles.recipe}
         >
           <button className={styles.recipe__back} onClick={() => navigate(-1)}>
-            <Arrow className={styles.recipe__back__arrow} />
+            <span className={styles.recipe__back__arrow} />
           </button>
 
           <div className={styles.recipe__content}>
-            <Line className={styles.recipe__content__line} />
+            <span className={styles.recipe__content__line} />
             <h2 className={styles.recipe__content__title}>
               {recipeStore.recipe.title}
             </h2>
             <div className={styles.recipe__content__numbers}>
               <div className={styles.recipe__content__numbers__minutes}>
-                <Time
+                <span
                   className={styles.recipe__content__numbers__minutes__icon}
                 />
                 <p className={styles.recipe__content__numbers__minutes__text}>
@@ -57,7 +53,7 @@ const RecipePage: React.FC = () => {
                 </p>
               </div>
               <div className={styles.recipe__content__numbers__likes}>
-                <Heart
+                <span
                   className={styles.recipe__content__numbers__likes__icon}
                 />
                 <p className={styles.recipe__content__numbers__likes__text}>

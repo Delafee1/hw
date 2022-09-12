@@ -1,7 +1,7 @@
-import { Option } from "@components/MultiDropdown";
-import rootStore from "@store/RootStore";
-import { MEAL_TYPES } from "@utils/constants/MealTypes";
-import { ILocalStore } from "@utils/useLocalStore";
+import { Option } from "components/MultiDropdown";
+import rootStore from "store/RootStore";
+import { MEAL_TYPES } from "utils/constants/MealTypes";
+import { ILocalStore } from "utils/useLocalStore";
 import { action, computed, makeObservable, observable } from "mobx";
 
 type PrivateFields =

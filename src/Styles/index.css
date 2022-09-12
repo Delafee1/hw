@@ -110,6 +110,10 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   font-family: 'Avenir';
   margin: 0;

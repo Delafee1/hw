@@ -1,4 +1,4 @@
-@import "src/Styles/variables";
+@import "styles/variables";
 
 .card {
   display: flex;
@@ -50,6 +50,9 @@
 
     &__plus {
       position: absolute;
+      background: center / contain no-repeat url('./Plus.svg');
+      width: 24px;
+      height: 24px;
       left: 120px;
       bottom: 10px;
 

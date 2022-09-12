@@ -3,7 +3,6 @@ import React from "react";
 import cn from "classnames";
 
 import styles from "./Card.module.scss";
-import { ReactComponent as Plus } from "./Plus.svg";
 
 type CardProps = {
   image: string;
@@ -29,7 +28,7 @@ const Card: React.FC<CardProps> = ({
       <div className={styles.card__subtitle}>{subtitle}</div>
       <div className={styles.card__footer}>
         <div className={styles.card__footer__content}>{content}</div>
-        <Plus className={styles.card__footer__plus} />
+        <span className={styles.card__footer__plus} />
       </div>
     </div>
   );

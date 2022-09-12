@@ -1,6 +1,7 @@
-import RecipePage from "@pages/RecipePage";
-import RecipesPage from "@pages/RecipesPage";
-import { useQueryParamsStoreInit } from "@store/RootStore/useQueryParamsStoreInit";
+import React from "react";
+import RecipePage from "pages/RecipePage";
+import RecipesPage from "pages/RecipesPage";
+import { useQueryParamsStoreInit } from "store/RootStore/useQueryParamsStoreInit";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 const App = () => {
